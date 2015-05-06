@@ -30,12 +30,12 @@ endif
 syn keyword modestConditional       if else alt when
 syn keyword modestLabel             default
 syn keyword modestBoolean           true false
-syn keyword modestConstant          tau
+syn keyword modestConstant          tau error
 syn keyword modestLoop              do
-syn keyword modestType              bool int action clock float property process
+syn keyword modestType              bool int action clock float property process exception
 syn keyword modestBranch            break abort  
-syn keyword modestExpression        relabel by extend const
-syn keyword modestPrimitiveStmt     stop par palt
+syn keyword modestExpression        relabel by extend const invariant Pmax Pmin Xmax Xmin urgent 
+syn keyword modestPrimitiveStmt     stop par palt throw catch try
 
 syn region modestLabelRegion        transparent matchgroup=modestLabel start="\<case\>" matchgroup=NONE end=":" contains=modestNumber
 
@@ -87,7 +87,6 @@ syn match   modestComment		 "/\*\*/"
 " Strings and constants
 syn match   modestSpecialError	 contained "\\."
 syn match   modestSpecialCharError contained "[^']"
-syn match   modestSpecialChar	 contained "\\\([4-9]\d\|[0-3]\d\d\|[\"\\'ntbrf]\|u\x\{4\}\)"
 syn region  modestString		start=+"+ end=+"+ end=+$+ contains=modestSpecialChar,modestSpecialError,@Spell
 " next line disabled, it can cause a crash for a long line
 "syn match   modestStringError	  +"\([^"\\]\|\\.\)*$+
@@ -98,10 +97,8 @@ syn match   modestNumber		 "\<\(0[0-7]*\|0[xX]\x\+\|\d\+\)[lL]\=\>"
 syn match   modestNumber		 "\(\<\d\+\.\d*\|\.\d\+\)\([eE][-+]\=\d\+\)\=[fFdD]\="
 syn match   modestNumber		 "\<\d\+[eE][-+]\=\d\+[fFdD]\=\>"
 syn match   modestNumber		 "\<\d\+\([eE][-+]\=\d\+\)\=[fFdD]\>"
-syn match   modestNumber        "\d\+..\(\d\+\|[A-Z]\)"
+syn match   modestNumber        "\d\+..\(\d\+\|[A-Z]\+\)"
 
-" unicode characters
-syn match   modestSpecial "\\u\d\{4\}"
 
 syn cluster modestTop add=modestString,modestCharacter,modestNumber,modestSpecial,modestStringError
 
